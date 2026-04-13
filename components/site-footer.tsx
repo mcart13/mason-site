@@ -9,7 +9,7 @@ export function SiteFooter() {
         <div className="flex flex-col gap-2">
           <p className="text-sm text-muted-foreground">Mason</p>
           <p className="text-xs text-muted-foreground">
-            Building systems that merge intelligence with real-world impact.
+            Building technology, businesses, and systems around hard problems.
           </p>
         </div>
         <div className="flex items-center gap-6">

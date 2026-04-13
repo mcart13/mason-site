@@ -15,7 +15,7 @@ export default function HomePage() {
 
           <AnimatedEnter className="mt-8" delay={0.15}>
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
-              @mbcartwright | Robotics & AI. Building vision systems for humanoid robots.
+              @mbcartwright | Building software, systems, and products that make complex ideas useful.
             </p>
           </AnimatedEnter>
 

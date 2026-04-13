@@ -7,11 +7,12 @@ export default function WorkPage() {
     <PageShell>
       <h1 className="text-4xl md:text-5xl font-medium tracking-tight mb-4">Work</h1>
       <p className="text-lg text-muted-foreground mb-16 max-w-xl">
-        Selected projects I&apos;ve worked on. Each one taught me something new.
+        Selected products, tools, and systems across software, AI, infrastructure,
+        and operations.
       </p>
       <div className="border-t border-border">
         {workItems.map((item, index) => (
-          <ProjectCard index={index} key={item.href} {...item} />
+          <ProjectCard index={index} key={`${item.title}-${item.year}`} {...item} />
         ))}
       </div>
     </PageShell>
