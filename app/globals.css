@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  --color-secondary: var(--secondary);
+  --color-card: var(--card);
+  --color-accent: var(--accent);
+  --color-primary: var(--primary);
+  --color-destructive: var(--destructive);
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-mono: Arial, Helvetica, sans-serif;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --muted-foreground: #171717;
+  --border: #171717;
+  --secondary: transparent;
+  --card: transparent;
+  --accent: rgba(23, 23, 23, 0.05);
+  --primary: #171717;
+  --destructive: #b91c1c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --muted-foreground: #ededed;
+    --border: #ededed;
+    --secondary: transparent;
+    --card: transparent;
+    --accent: rgba(237, 237, 237, 0.08);
+    --primary: #ededed;
+    --destructive: #f87171;
+  }
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
