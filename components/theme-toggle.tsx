@@ -162,7 +162,7 @@ export function ThemeToggle() {
   return (
     <button
       aria-label={title}
-      className={`fixed left-6 bottom-6 z-50 flex h-11 w-11 items-center justify-center rounded-full bg-background/60 text-foreground backdrop-blur-md transition-[background-color,color,transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-accent motion-reduce:transition-none md:left-10 md:bottom-10 ${
+      className={`fixed left-5 bottom-5 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-background/60 text-foreground backdrop-blur-md transition-[background-color,color,transform,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:bg-accent motion-reduce:transition-none md:left-10 md:bottom-10 md:h-11 md:w-11 ${
         isMounted ? "translate-y-0 scale-100 opacity-100" : "translate-y-3 scale-95 opacity-0"
       }`}
       onClick={handleToggle}
