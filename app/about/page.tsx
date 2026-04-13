@@ -27,10 +27,10 @@ export default function AboutPage() {
       <div className="max-w-2xl">
         <h2 className="text-2xl font-medium mt-16 mb-4">What I Build</h2>
         <ul className="list-disc pl-6 text-lg space-y-2">
-          <li>AI systems and agent-driven workflows</li>
-          <li>Software products designed for leverage and execution</li>
-          <li>Infrastructure and internal tools that remove bottlenecks</li>
-          <li>Business systems that turn complex ideas into durable outcomes</li>
+          <li>Software that turns context into action</li>
+          <li>Execution systems for teams moving at founder speed</li>
+          <li>Tools that cut complex work down to one clear next step</li>
+          <li>Infrastructure for finance, compliance, and real operations</li>
         </ul>
       </div>
       <div className="max-w-2xl">

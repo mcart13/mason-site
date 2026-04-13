@@ -166,7 +166,6 @@ export function ThemeToggle() {
         isMounted ? "translate-y-0 scale-100 opacity-100" : "translate-y-3 scale-95 opacity-0"
       }`}
       onClick={handleToggle}
-      title={title}
       type="button"
     >
       <span className="sr-only">{title}</span>
