@@ -8,7 +8,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import React, { useCallback, useEffect, useId, useRef, useState } from "react";
+import React, { useCallback, useEffect, useId, useRef } from "react";
 
 const CELLS_X = 1;
 const CELLS_Y = 1;
@@ -22,17 +22,10 @@ const CENTER_X = VIEW_W / 2;
 const CENTER_Y = VIEW_H / 2 + 20;
 const FLAT_HEIGHT = 8;
 const RAISED_HEIGHT = 64;
-const CENTER_COL = 0;
-const CENTER_ROW = 0;
-const CENTER_KEY = `${CENTER_COL}-${CENTER_ROW}`;
-const FLIP_COL_THRESHOLD = 1;
-const CARD_OFFSET_RIGHT = TILE_U * ISO_X;
-const CARD_OFFSET_LEFT = -TILE_U * ISO_X;
-const CARD_VERTICAL_ANCHOR_OFFSET = -RAISED_HEIGHT / 2;
+const CENTER_KEY = "0-0";
 const IDLE_ROTATION_MS = 2800;
 
 const TILE_SPRING = { damping: 18, mass: 1 };
-const CARD_SPRING = { damping: 22, mass: 0.8 };
 
 interface ScreenPos {
   x: number;
@@ -454,119 +447,11 @@ const findHoveredTile = (mx: number, my: number, raisedKey: string | null): Tile
   return null;
 };
 
-interface EmployeeRecord {
-  initials: string;
-  role: string;
-  status: string;
-  metric: { label: string; value: string };
-}
-
-type RoleTitle =
-  | "Chief of Staff"
-  | "Operations Lead"
-  | "Finance Lead"
-  | "Sales Director"
-  | "Product Manager"
-  | "Engineering Manager"
-  | "Design Lead"
-  | "Customer Success Lead"
-  | "Marketing Director"
-  | "RevOps Manager"
-  | "Program Manager"
-  | "Research Lead"
-  | "Procurement Lead"
-  | "Support Lead";
-
-const ROLE_TITLES: readonly RoleTitle[] = [
-  "Chief of Staff",
-  "Operations Lead",
-  "Finance Lead",
-  "Sales Director",
-  "Product Manager",
-  "Engineering Manager",
-  "Design Lead",
-  "Customer Success Lead",
-  "Marketing Director",
-  "RevOps Manager",
-  "Program Manager",
-  "Research Lead",
-  "Procurement Lead",
-  "Support Lead",
-];
-
-const STATUS_LABELS = [
-  "Online · Synced 2m ago",
-  "Planning · Reviewed 7m ago",
-  "Executing · 3 items active",
-  "Waiting · 2 dependencies open",
-  "Focused · Drafting handoff",
-  "In review · Updated 12m ago",
-] as const;
-
-const METRIC_PAIRS = [
-  { label: "Context loaded", value: "94%" },
-  { label: "Tasks closed", value: "12" },
-  { label: "Forecast delta", value: "+3.4%" },
-  { label: "Open reviews", value: "4" },
-  { label: "Pipeline", value: "8" },
-  { label: "SLA", value: "1.2h" },
-  { label: "Spend reviewed", value: "$82k" },
-  { label: "Docs synced", value: "11" },
-] as const;
-
-const createExampleEmployee = (index: number): EmployeeRecord => {
-  const role = ROLE_TITLES[index % ROLE_TITLES.length];
-  const status = STATUS_LABELS[index % STATUS_LABELS.length];
-  const metric = METRIC_PAIRS[index % METRIC_PAIRS.length];
-  const initials = role
-    .split(" ")
-    .map((word) => word[0])
-    .join("")
-    .slice(0, 2);
-
-  return { initials, role, status, metric };
-};
-
-const EMPLOYEES = Object.fromEntries(
-  TILE_ENTRIES.map((entry, index) => {
-    const key = `${entry.col}-${entry.row}`;
-    if (key === CENTER_KEY) {
-      return [
-        key,
-        {
-          initials: "CS",
-          role: "Chief of Staff",
-          status: "Online · Synced 2m ago",
-          metric: { label: "Context loaded", value: "94%" },
-        },
-      ];
-    }
-
-    return [key, createExampleEmployee(index)];
-  }),
-) as Record<string, EmployeeRecord>;
-
 const TILE_BY_KEY = Object.fromEntries(
   TILE_ENTRIES.map((entry) => [`${entry.col}-${entry.row}`, entry]),
 ) as Record<string, TileEntry>;
 
 const IDLE_PILLAR_KEYS = [CENTER_KEY] as const;
-
-const CENTER_GEO = cellGeo();
-
-type CardSide = "left" | "right";
-
-interface HoveredPillar {
-  key: string;
-  side: CardSide;
-}
-
-const resolveCardSide = (col: number): CardSide => (col >= FLIP_COL_THRESHOLD ? "left" : "right");
-
-const cardOffsetForSide = (side: CardSide): number =>
-  side === "left" ? CARD_OFFSET_LEFT : CARD_OFFSET_RIGHT;
-
-const INITIAL_SIDE: CardSide = resolveCardSide(CENTER_COL);
 
 const getNextIdleEmployeeKey = (currentKey: string, randomValue: number = Math.random()): string => {
   const candidates = IDLE_PILLAR_KEYS.filter((key) => key !== currentKey);
@@ -582,17 +467,6 @@ export function TensionMesh() {
   const mouseX = useMotionValue(Number.POSITIVE_INFINITY);
   const mouseY = useMotionValue(Number.POSITIVE_INFINITY);
   const reducedMotion = useReducedMotion() ?? false;
-
-  const cardAnchorX = useMotionValue(CENTER_GEO.cx + cardOffsetForSide(INITIAL_SIDE));
-  const cardAnchorY = useMotionValue(CENTER_GEO.cy + CARD_VERTICAL_ANCHOR_OFFSET);
-  const springX = useSpring(cardAnchorX, CARD_SPRING);
-  const springY = useSpring(cardAnchorY, CARD_SPRING);
-  const effectiveCardX = reducedMotion ? cardAnchorX : springX;
-  const effectiveCardY = reducedMotion ? cardAnchorY : springY;
-  const cardLeftPct = useTransform(effectiveCardX, (x) => `${(x / VIEW_W) * 100}%`);
-  const cardTopPct = useTransform(effectiveCardY, (y) => `${(y / VIEW_H) * 100}%`);
-
-  const [hovered, setHovered] = useState<HoveredPillar | null>(null);
   const hoveredKeyRef = useRef<string | null>(null);
   const idleTimerRef = useRef<number | null>(null);
   const resumeTimerRef = useRef<number | null>(null);
@@ -615,14 +489,10 @@ export function TensionMesh() {
       if (!tile) return;
 
       hoveredKeyRef.current = key;
-      const side = resolveCardSide(tile.col);
-      setHovered({ key, side });
       mouseX.set(tile.geo.cx);
       mouseY.set(tile.geo.cy);
-      cardAnchorX.set(tile.geo.cx + cardOffsetForSide(side));
-      cardAnchorY.set(tile.geo.cy + CARD_VERTICAL_ANCHOR_OFFSET);
     },
-    [cardAnchorX, cardAnchorY, mouseX, mouseY],
+    [mouseX, mouseY],
   );
 
   useEffect(() => {
@@ -649,7 +519,6 @@ export function TensionMesh() {
     mouseX.set(Number.POSITIVE_INFINITY);
     mouseY.set(Number.POSITIVE_INFINITY);
     hoveredKeyRef.current = null;
-    setHovered(null);
   };
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -668,9 +537,6 @@ export function TensionMesh() {
 
     activatePillar(`${tile.col}-${tile.row}`);
   };
-
-  const employee = hovered ? (EMPLOYEES[hovered.key] ?? null) : null;
-
   return (
     <div
       className="landing-tension-mesh-stage"
@@ -723,29 +589,6 @@ export function TensionMesh() {
           </filter>
         </defs>
       </svg>
-      {hovered ? (
-        <motion.div
-          aria-hidden="true"
-          className={`landing-tension-mesh-card is-side-${hovered.side}`}
-          style={{ left: cardLeftPct, top: cardTopPct }}
-        >
-          {employee ? (
-            <>
-              <header className="landing-tension-mesh-card-header">
-                <span className="landing-tension-mesh-card-avatar">{employee.initials}</span>
-                <span className="landing-tension-mesh-card-role">{employee.role}</span>
-              </header>
-              <div className="landing-tension-mesh-card-body">
-                <span className="landing-tension-mesh-card-status">{employee.status}</span>
-                <div className="landing-tension-mesh-card-metric">
-                  <span>{employee.metric.label}</span>
-                  <span>{employee.metric.value}</span>
-                </div>
-              </div>
-            </>
-          ) : null}
-        </motion.div>
-      ) : null}
     </div>
   );
 }

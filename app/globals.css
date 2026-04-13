@@ -70,34 +70,32 @@ a {
 }
 
 .ui-showcase-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 24px;
-  place-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 56px;
+  width: 100%;
 }
 
 .ui-showcase-stage {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 
-.ui-showcase-card {
-  position: relative;
-  overflow: hidden;
-  width: min(100%, 760px);
-  border: 0.5px solid rgba(23, 23, 23, 0.12);
-  border-radius: 32px;
-  padding: 40px 32px;
-  background:
-    radial-gradient(circle at top left, rgba(255, 255, 255, 0.08), transparent 36%),
-    linear-gradient(180deg, #121315 0%, #09090b 100%);
-  box-shadow:
-    0 32px 80px rgba(0, 0, 0, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+.ui-showcase-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.ui-showcase-card--speed {
-  width: min(100%, 820px);
+.ui-showcase-item--fig {
+  width: min(100%, 265px);
+}
+
+.ui-showcase-item--speed {
+  width: min(100%, 272px);
 }
 
 .landing-three-col {
@@ -179,98 +177,4 @@ a {
   display: block;
   width: 100%;
   height: 100%;
-}
-
-.landing-tension-mesh-card {
-  position: absolute;
-  z-index: 2;
-  width: 236px;
-  padding: 16px 18px 18px;
-  border: 0.5px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  background: #0f1011;
-  box-shadow:
-    0 22px 44px rgba(0, 0, 0, 0.45),
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.02);
-  color: rgb(208, 214, 224);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  pointer-events: none;
-}
-
-.landing-tension-mesh-card.is-side-right {
-  transform: translate(28px, -50%);
-}
-
-.landing-tension-mesh-card.is-side-left {
-  transform: translate(calc(-100% - 28px), -50%);
-}
-
-.landing-tension-mesh-card-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.landing-tension-mesh-card-avatar {
-  width: 34px;
-  height: 34px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 0.5px solid rgba(255, 255, 255, 0.08);
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  font-family: var(--font-jetbrains-mono), monospace;
-  font-size: 11px;
-  letter-spacing: 0.04em;
-  color: rgb(208, 214, 224);
-}
-
-.landing-tension-mesh-card-role {
-  font-size: 10px;
-  line-height: 14px;
-  color: rgb(138, 143, 152);
-  font-family: var(--font-jetbrains-mono), monospace;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
-.landing-tension-mesh-card-body {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding-top: 12px;
-  border-top: 0.5px solid rgba(255, 255, 255, 0.06);
-}
-
-.landing-tension-mesh-card-status {
-  font-size: 11px;
-  line-height: 16px;
-  color: rgb(138, 143, 152);
-}
-
-.landing-tension-mesh-card-metric {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  font-size: 12px;
-  line-height: 16px;
-}
-
-.landing-tension-mesh-card-metric > span:first-child {
-  color: rgb(138, 143, 152);
-}
-
-.landing-tension-mesh-card-metric > span:last-child {
-  color: rgb(255, 255, 255);
-  font-family: var(--font-jetbrains-mono), monospace;
-}
-
-@media (max-width: 768px) {
-  .ui-showcase-card {
-    border-radius: 28px;
-    padding: 20px;
-  }
 }
