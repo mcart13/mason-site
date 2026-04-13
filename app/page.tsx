@@ -14,7 +14,7 @@ export default function HomePage() {
           </AnimatedEnter>
 
           <AnimatedEnter className="mt-8" delay={0.15}>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl">
+            <p className="max-w-4xl text-lg text-muted-foreground md:text-xl">
               @mbcartwright | Building software, systems, and products that make complex ideas useful.
             </p>
           </AnimatedEnter>
@@ -31,7 +31,7 @@ export default function HomePage() {
               View Work
             </Link>
             <Link
-              className="inline-flex items-center justify-center px-6 py-3 text-sm font-medium border border-border rounded-full hover:bg-accent transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3 text-sm font-medium border-[0.5px] border-border rounded-full hover:bg-accent transition-colors"
               href="/contact"
             >
               Get in Touch

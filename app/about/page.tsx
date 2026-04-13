@@ -25,6 +25,15 @@ export default function AboutPage() {
         </p>
       </div>
       <div className="max-w-2xl">
+        <h2 className="text-2xl font-medium mt-16 mb-4">What I Build</h2>
+        <ul className="list-disc pl-6 text-lg space-y-2">
+          <li>AI systems and agent-driven workflows</li>
+          <li>Software products designed for leverage and execution</li>
+          <li>Infrastructure and internal tools that remove bottlenecks</li>
+          <li>Business systems that turn complex ideas into durable outcomes</li>
+        </ul>
+      </div>
+      <div className="max-w-2xl">
         <h2 className="text-2xl font-medium mt-16 mb-4">Tech Stack</h2>
         <ul className="list-disc pl-6 text-lg space-y-2">
           <li>TypeScript, JavaScript, Python</li>

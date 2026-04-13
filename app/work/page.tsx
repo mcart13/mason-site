@@ -10,7 +10,7 @@ export default function WorkPage() {
         Selected products, tools, and systems across software, AI, infrastructure,
         and operations.
       </p>
-      <div className="border-t border-border">
+      <div>
         {workItems.map((item, index) => (
           <ProjectCard index={index} key={`${item.title}-${item.year}`} {...item} />
         ))}
