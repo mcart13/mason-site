@@ -31,7 +31,7 @@ export default function HomePage() {
               View Work
             </Link>
             <Link
-              className="inline-flex items-center justify-center px-6 py-3 text-sm font-medium border-[0.5px] border-border rounded-full hover:bg-accent transition-colors"
+              className="inline-flex items-center justify-center px-6 py-3 text-sm font-medium border-[0.75px] border-border rounded-full hover:bg-accent transition-colors"
               href="/contact"
             >
               Get in Touch
